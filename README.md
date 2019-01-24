@@ -1,6 +1,6 @@
 Image Classifier
 
-Going forward, AI algorithms will be incorporated into more and more everyday applications. For example, you might want to include an image classifier in a smartphone app. To do this, you'd use a deep learning model trained on hundreds of thousands of images as part of the overall application architecture. A large part of software development in the future will be using these types of models as common parts of applications.
+I have implemeted Image classifier reconizing images of flowers using  PyTorch image classification model and further converted into Command line application. AI algorithms will be incorporated into more and more everyday applications. For example, you might want to include an image classifier in a smartphone app. To do this, you'd use a deep learning model trained on hundreds of thousands of images as part of the overall application architecture. A large part of software development in the future will be using these types of models as common parts of applications.
 
 In this project, you'll train an image classifier to recognize different species of flowers. You can imagine using something like this in a phone app that tells you the name of the flower your camera is looking at. In practice, you'd train this classifier, then export it for use in your application. We'll be using this dataset of 102 flower categories.
 
@@ -23,8 +23,7 @@ to upgrade Python
 
 pip install python -- upgrade
 
-Additional Packages that are required are: Numpy, Pandas, MatplotLib, Pytorch, PIL and json.
-You can donwload them using pip
+Additional Packages that are required are: Numpy, Pandas, MatplotLib, Pytorch, PIL and json which can be downloaded using pip command.
 
 pip install numpy pandas matplotlib pil
 
@@ -64,7 +63,7 @@ Command Line Application
 
 Json file
 
-In order for the network to print out the name of the flower a .json file is required. If you aren't familiar with json you can find information here. By using a .json file the data can be sorted into folders with numbers and those numbers will correspond to specific names specified in the .json file.
+In order for the network to print out the name of the flower a .json file is required.  By using a .json file the data can be sorted into folders with numbers and those numbers will correspond to specific names specified in the .json file.
 Data and the json file
 
 The data used specifically for this assignemnt are a flower database are not provided in the repository as it's larger than what github allows. Nevertheless, feel free to create your own databases and train the model on them to use with your own projects. The structure of your data should be the following:
@@ -80,6 +79,15 @@ As the network makes use of a sophisticated deep convolutional neural network th
 
 However, once a model is trained then a normal CPU can be used for the predict.py file and you will have an answer within some seconds.
 Hyperparameters
+
+Sample Training Command:
+
+bash train.sh
+
+Sample Prediction Command:
+
+bash predict.sh
+
 
 As you can see you have a wide selection of hyperparameters available and you can get even more by making small modifications to the code. Thus it may seem overly complicated to choose the right ones especially if the training needs at least 15 minutes to be completed. So here are some hints:
 
