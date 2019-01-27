@@ -27,7 +27,7 @@ argumentparser.add_argument('--category_names', dest="category_names", action="s
 argumentparser.add_argument('--gpu', default="gpu", action="store", dest="gpu")
 
 parser = argumentparser.parse_args()
-path_image = parser.input_img
+path_images = parser.input_img
 number_of_outputs = parser.top_k
 power = parser.gpu
 input_img = parser.input_img
@@ -45,7 +45,7 @@ with open('cat_to_name.json', 'r') as json_file:
     cat_to_name = json.load(json_file)
 
 
-probability = futils.predict(path_image, model, number_of_outputs, power)
+probability = futils.predict(path_images, model, number_of_outputs, power)
 
 
 labels = [cat_to_name[str(index + 1)] for index in np.array(probability[1][0])]
