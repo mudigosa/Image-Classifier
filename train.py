@@ -13,7 +13,7 @@ import argparse
 
 import futils
 
-argumentparser = argparse.ArgumentParser(description='Train.py')
+argumentparser = argparse.ArgumentParser(description='train.py')
 # Command Line ardguments
 
 argumentparser.add_argument('data_dir', nargs='*', action="store", default="./flowers/")
@@ -39,7 +39,7 @@ epochs = parser.epochs
 trainloader, v_loader, testloader = futils.load_data(where)
 
 
-model, optimizer, criterion = futils.nn_setup(structures,dropout,hidden_layer,lr,power)
+model, optimizer, criterion = futils.setup(structures,dropout,hidden_layer,lr,power)
 
 
 futils.train_network(model, optimizer, criterion, epochs, 20, trainloader, power)
