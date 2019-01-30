@@ -42,7 +42,7 @@ trainloader, v_loader, testloader = futils.load_data(where)
 model, optimizer, criterion = futils.setup(structures,dropout,hidden_layer,lr,power)
 
 
-futils.train_network(model, optimizer, criterion, epochs, 20, trainloader, power)
+futils.training_network(model, optimizer, criterion, epochs, 20, trainloader, power)
 
 
 futils.save_checkpoint(paths,structures,hidden_layer,dropout,lr)
