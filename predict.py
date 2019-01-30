@@ -20,8 +20,8 @@ import futils
 
 argumentparser = argparse.ArgumentParser(
     description='predict-file')
-argumentparser.add_argument('input_img', default='paind-project/flowers/test/1/image_06752.jpg', nargs='*', action="store", type = str)
-argumentparser.add_argument('checkpoint', default='/home/workspace/paind-project/checkpoint.pth', nargs='*', action="store",type = str)
+argumentparser.add_argument('input_img', default='mudigosa/flowers/test/1/image_06752.jpg', nargs='*', action="store", type = str)
+argumentparser.add_argument('checkpoint', default='/home/workspace/mudigosa/checkpoint.pth', nargs='*', action="store",type = str)
 argumentparser.add_argument('--top_k', default=5, dest="top_k", action="store", type=int)
 argumentparser.add_argument('--category_names', dest="category_names", action="store", default='cat_to_name.json')
 argumentparser.add_argument('--gpu', default="gpu", action="store", dest="gpu")
