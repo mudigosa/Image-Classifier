@@ -99,62 +99,56 @@ def setup(structure='vgg16',dropout=0.5, hidden_layer1 = 120,lr = 0.001):
     
 
 model,optimizer,criterion = setup('densenet121')
-
-epochs = 12
-print_every = 5
-steps = 0
-loss_show=[]
-
-# change to cuda
-model.to('cuda')
-
-for e in range(epochs):
+def training_network(model, criterion, optimizer, epochs = 3, print_every=20, loader=trainloader, power='gpu'):
+    steps = 0
     running_loss = 0
-    for ii, (inputs, labels) in enumerate(trainloader):
-        steps += 1
-        
-        inputs,labels = inputs.to('cuda'), labels.to('cuda')
-        
-        optimizer.zero_grad()
-        
-        # Forward and backward passes
-        outputs = model.forward(inputs)
-        loss = criterion(outputs, labels)
-        loss.backward()
-        optimizer.step()
-        
-        running_loss += loss.item()
-        
-        if steps % print_every == 0:
-            model.eval()
-            vlost = 0
-            accuracy=0
-            
-            
-            for ii, (inputs2,labels2) in enumerate(vloader):
-                optimizer.zero_grad()
-                
-                inputs2, labels2 = inputs2.to('cuda:0') , labels2.to('cuda:0')
-                model.to('cuda:0')
-                with torch.no_grad():    
-                    outputs = model.forward(inputs2)
-                    vlost = criterion(outputs,labels2)
-                    ps = torch.exp(outputs).data
-                    equality = (labels2.data == ps.max(1)[1])
-                    accuracy += equality.type_as(torch.FloatTensor()).mean()
-                    
-            vlost = vlost / len(vloader)
-            accuracy = accuracy /len(vloader)
-            
-                    
-            
-            print("Epoch: {}/{}... ".format(e+1, epochs),
-                  "Loss: {:.4f}".format(running_loss/print_every),
-                  "Validation Lost {:.4f}".format(vlost),
-                   "Accuracy: {:.4f}".format(accuracy))
-            
-            
-            running_loss = 0
+    for e in range(epochs):
+        running_loss = 0
+        for ii, (inputs, labels) in enumerate(trainloader):
+            steps += 1
+
+            inputs,labels = inputs.to('cuda'), labels.to('cuda')
+
+            optimizer.zero_grad()
+
+            # Forward and backward passes
+            outputs = model.forward(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+
+            running_loss += loss.item()
+
+            if steps % print_every == 0:
+                model.eval()
+                vlost = 0
+                accuracy=0
+
+
+                for ii, (inputs2,labels2) in enumerate(vloader):
+                    optimizer.zero_grad()
+
+                    inputs2, labels2 = inputs2.to('cuda:0') , labels2.to('cuda:0')
+                    model.to('cuda:0')
+                    with torch.no_grad():    
+                        outputs = model.forward(inputs2)
+                        vlost = criterion(outputs,labels2)
+                        ps = torch.exp(outputs).data
+                        equality = (labels2.data == ps.max(1)[1])
+                        accuracy += equality.type_as(torch.FloatTensor()).mean()
+
+                vlost = vlost / len(vloader)
+                accuracy = accuracy /len(vloader)
+
+
+
+                print("Epoch: {}/{}... ".format(e+1, epochs),
+                      "Loss: {:.4f}".format(running_loss/print_every),
+                      "Validation Lost {:.4f}".format(vlost),
+                       "Accuracy: {:.4f}".format(accuracy))
+
+
+                running_loss = 0
 
 
 # TODO: Do validation on the test set
