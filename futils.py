@@ -58,7 +58,7 @@ main_structures = {"vgg16":25088,
               "densenet121" : 1024,
               "alexnet" : 9216 }
 
-def setup(structure='vgg16',dropout=0.5, hidden_layer1 = 120,lr = 0.001):
+def setup(structure='alexnet',dropout=0.5, hidden_layer1 = 120,lr = 0.001):
     
     
     if structure == 'vgg16':
@@ -77,15 +77,10 @@ def setup(structure='vgg16',dropout=0.5, hidden_layer1 = 120,lr = 0.001):
 
         from collections import OrderedDict
         classifier = nn.Sequential(OrderedDict([
-            ('dropout',nn.Dropout(dropout)),
-            ('inputs', nn.Linear(main_structures[structure], hidden_layer1)),
-            ('relu1', nn.ReLU()),
-            ('hidden_layer1', nn.Linear(hidden_layer1, 90)),
-            ('relu2',nn.ReLU()),
-            ('hidden_layer2',nn.Linear(90,80)),
-            ('relu3',nn.ReLU()),
-            ('hidden_layer3',nn.Linear(80,102)),
-            ('output', nn.LogSoftmax(dim=1))
+                          ('relu1', nn.ReLU()),
+                          ('dropout1', nn.Dropout(p=0.5)),
+                          ('fc2', nn.Linear(4096, 102, bias=True)),
+                          ('output', nn.LogSoftmax(dim=1))
                           ]))
         
         
