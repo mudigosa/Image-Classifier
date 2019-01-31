@@ -167,7 +167,7 @@ check_accuracy_testdata(testloader)
 # TODO: Save the checkpoint 
 model.class_to_idx = train_data.class_to_idx
 model.cpu
-torch.save({'structure' :'densenet121',
+torch.save({'structure' :'vgg16',
             'hidden_layer1':120,
             'state_dict':model.state_dict(),
             'class_to_idx':model.class_to_idx},
