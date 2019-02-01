@@ -87,9 +87,10 @@ def setup(structure='alexnet',dropout=0.5, hidden_layer1 = 120,lr = 0.001):
         model.classifier = classifier
         criterion = nn.NLLLoss()
         optimizer = optim.Adam(model.classifier.parameters(), lr )
-        model.cuda()
+         if torch.cuda.is_available() and power = 'gpu': 
+            model.cuda()
         
-        return model , optimizer ,criterion 
+          return model , optimizer ,criterion 
 
     
 
@@ -241,10 +242,11 @@ ctx = model.class_to_idx
 
 
 def predict_model(image_path, model, topk=5):   
-    model.to('cuda:0')
-    img_torch = image_process(image_path)
-    img_torch = img_torch.unsqueeze_(0)
-    img_torch = img_torch.float()
+    if torch.cuda.is_available() and power = 'gpu':
+        model.to('cuda:0')
+     img_torch = image_process(image_path)
+     img_torch = img_torch.unsqueeze_(0)
+     img_torch = img_torch.float()
     
     with torch.no_grad():
         output = model.forward(img_torch.cuda())
