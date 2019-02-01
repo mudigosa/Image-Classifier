@@ -23,7 +23,7 @@ argumentparser = argparse.ArgumentParser(
 argumentparser.add_argument('input_img', default='mudigosa/flowers/test/1/image_06752.jpg', nargs='*', action="store", type = str)
 argumentparser.add_argument('checkpoint', default='/home/workspace/mudigosa/checkpoint.pth', nargs='*', action="store",type = str)
 argumentparser.add_argument('--top_k', default=5, dest="top_k", action="store", type=int)
-argumentparser.add_argument('--category_names', dest="category_names", action="store", default='cat_to_name.json')
+argumentparser.add_argument('--category_names', dest="category_names", action="store", default='mudigosa/mapping/cat_to_name.json')
 argumentparser.add_argument('--gpu', default="gpu", action="store", dest="gpu")
 
 parser = argumentparser.parse_args()
@@ -32,6 +32,7 @@ number_of_outputs = parser.top_k
 power = parser.gpu
 input_img = parser.input_img
 path = parser.checkpoint
+category_names = parser.category_names
 
 
 
@@ -41,7 +42,7 @@ training_loader, testing_loader, validation_loader = futils.load_data()
 futils.load_checkpoint(path)
 
 
-with open('cat_to_name.json', 'r') as json_file:
+with open('category_names', 'r') as json_file:
     cat_to_name = json.load(json_file)
 
 
